@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>変電所イベント Webマップ（即確認版）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Leaflet CDN -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  body { margin:0; font-family: "Segoe UI", sans-serif; }
+  html, body {
+  height: 100%;
+}
+
+#map {
+  height: 100svh; /* ★ iOS / Android / WebView 最優先 */
+  height: 100dvh;   /* モダンブラウザ（iOS 16+, Android, Chrome） */
+  height: 100vh;    /* フォールバック（古いブラウザ） */
+}
+  .header {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(255,255,255,0.95);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+.leaflet-popup-content .popup-title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 6px;
+  }
+
+  /* スマホ操作を意識 */
+  .leaflet-control-layers {
+    font-size: 14px;
+  }
+
+.nav-links {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: 10px 14px;
+  background: #1d6fdc;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.nav-links a.secondary {
+  background: #555;
+}
+</style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<div class="nav-links">
+  <a href="indoor_booth_map.html">🏢 屋内展示ブースＭＡＰへ</a>
+  <a href="booth_detail.html" class="secondary">📋 展示ブース一覧へ</a>
+</div>
+
+<script>
+/* =========================================
+   1. マップ初期化（構内ローカル座標）
+========================================= */
+const map = L.map("map", {
+  crs: L.CRS.Simple,
+  minZoom: -2,
+  maxZoom: 2
+});
+
+
+function fixMapSize() {
+  map.invalidateSize();
+}
+
+setTimeout(fixMapSize, 0);
+setTimeout(fixMapSize, 300);
+setTimeout(fixMapSize, 800);
+
+window.addEventListener("orientationchange", () => {
+  setTimeout(fixMapSize, 300);
+});
+
+
+/* =========================================
+   2. 構内図「イメージ」背景
+   ※本番では imageOverlay を実図PNGに差替
+========================================= */
+const bounds = [[0,0],[1000,1500]];
+map.fitBounds(bounds);
+
+/* SVGで簡易構内図イメージを生成（即見れる用） */
+L.imageOverlay(
+  "./substation_map.png",
+  bounds
+).addTo(map);
+
+/* =========================================
+   3. レイヤ定義
+========================================= */
+const outdoorLayer = L.layerGroup();
+const indoorLayer  = L.layerGroup();
+const routeLayerA  = L.layerGroup();
+const routeLayerB  = L.layerGroup();
+const routeLayerC  = L.layerGroup();
+
+
+/* =========================================
+   4. GeoJSON相当データ（HTML内埋め込み）
+========================================= */
+const outdoorBooths = {
+  "type":"FeatureCollection",
+  "features":[
+    { "type":"Feature","properties":{"id":"O-1","name":"ハイドロマチックモア【送電】","time":"5〜10分","image":"O-1.png"},
+
+      "geometry":{"type":"Point","coordinates":[180,670]}},
+
+    { "type":"Feature","properties":{"id":"O-2","name":"パワーグリッドチェック【送電】","time":"5〜10分","image":"O-2.png"},
+      "geometry":{"type":"Point","coordinates":[255,440]}},
+
+    { "type":"Feature","properties":{"id":"O-3","name":"安全ＡＩカメラ＆輪留めインターロック","time":"5〜10分","image":"O-3.png"},
+      "geometry":{"type":"Point","coordinates":[660,250]}},
+
+    { "type":"Feature","properties":{"id":"O-4","name":"伐採車両【配電】","time":"5〜10分","image":"O-4.png"},
+      "geometry":{"type":"Point","coordinates":[1040,360]}},
+
+    { "type":"Feature","properties":{"id":"O-5","name":"間接活線工具【配電】","time":"5〜10分","image":"O-5.png"},
+      "geometry":{"type":"Point","coordinates":[1280,360]}},
+
+    { "type":"Feature","properties":{"id":"O-6","name":"ドローン巡視【変電】","time":"5〜10分","image":"O-6.png"},
+      "geometry":{"type":"Point","coordinates":[1000,600]}},
+
+    { "type":"Feature","properties":{"id":"O-7","name":"運搬ドローン【送電】","time":"5〜10分","image":"O-7.png"},
+      "geometry":{"type":"Point","coordinates":[1080,830]}},
+
+    { "type":"Feature","properties":{"id":"O-8","name":"山間部巡視ロボ【送電】","time":"5〜10分","image":"O-8.png"},
+      "geometry":{"type":"Point","coordinates":[1220,960]}},
+
+    { "type":"Feature","properties":{"id":"O-9","name":"フォトスポット【広報】","time":"5〜10分","image":"O-9.png"},
+      "geometry":{"type":"Point","coordinates":[810,270]}}
+  ]
+};
+
+const indoorBooths = {  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "I-01～26",
+        "name": "屋内展示ブース",
+        "time": "30分",
+        "detailUrl": "indoor_booth_map.html"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [930, 240]
+      }
+    }
+  ]
+};
+
+
+
+/* =========================================
+   5. 描画処理
+========================================= */
+
+function popupBase(p) {
+  let html = `
+    <div style="
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 6px;
+    ">
+      ${p.id} ${p.name}
+    </div>
+    見学目安：${p.time}
+  `;
+
+  // 画像がある場合のみ表示
+  if (p.image) {
+    html += `
+      <img src="${p.image}"
+           style="width:100%; margin-top:6px; border-radius:6px;">`;
+  }
+
+  // 屋内展示ブース用：詳細ページへのボタン
+  if (p.detailUrl) {
+    html += `
+      <div style="margin-top:10px; text-align:center;">
+        <button
+          onclick="location.href='${p.detailUrl}'"
+          style="
+            padding:6px 12px;
+            background:#1d6fdc;
+            color:#fff;
+            border:none;
+            border-radius:4px;
+            cursor:pointer;"
+
+        >
+          屋内展示ブース詳細を見る
+        </button>
+      </div>
+    `;
+  }
+
+  return html;
+}
+
+
+L.geoJSON(outdoorBooths, {
+  pointToLayer: (f, ll) =>
+    L.marker(ll, {
+      icon: L.divIcon({
+        className: "star-marker",
+        html: '<span style="font-size:30px; color:#000000; font-weight:bold;">👀</span>',
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
+      })
+    }),
+  onEachFeature: (f, l) =>
+    l.bindPopup(popupBase(f.properties))
+}).addTo(outdoorLayer);
+
+L.geoJSON(indoorBooths,{
+  pointToLayer: (f, ll) =>
+    L.marker(ll, {
+      icon: L.divIcon({
+        className: "star-marker",
+        html: '<span style="font-size:30px; color:#000000; font-weight:bold;">📋</span>',
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
+      })
+    }),
+  onEachFeature: (f, l) =>
+    l.bindPopup(popupBase(f.properties))
+}).addTo(indoorLayer);
+
+
+/* =========================================
+   見学ルート A（東側）
+========================================= */
+/* 見学ルート A */
+L.polyline(
+  [
+    [360,870],
+    [550,870],
+    [550,640],
+    [530,600],
+    [530,450],
+    [630,310],
+    [630,250],
+    [600,250],
+    [600,300],
+    [500,300],
+    [500,600],
+    [530,640],
+    [530,830]   // ← 終点
+  ],
+  {
+    color:"GREEN",
+    weight:3,
+    dashArray:"6,6"
+  }
+).addTo(routeLayerA);
+
+/* 始点のマーク */
+L.marker([360,850], {
+  icon: L.divIcon({
+  html: '<span style="font-size:25px; color:#000000; font-weight:bold;">🚶</span>',
+  iconSize: [30, 30],
+    className: ""
+  })
+}).addTo(routeLayerA);
+
+/* 終点のマーク */
+L.marker([540,830], {
+  icon: L.divIcon({
+  html: '<span style="font-size:20px; color:#000000; font-weight:bold;">🚩</span>',
+    iconSize: [17, 17],
+    className: ""
+  })
+}).addTo(routeLayerA);
+
+/* =========================================
+   見学ルート B（西側）
+========================================= */
+L.polyline(
+  [
+    [360,870],
+    [540,870],
+    [540,1240],
+    [910,1240],
+    [910,880],
+    [580,880]   // ← 終点
+  ],
+  {
+    color:"BLUE",
+    weight:3,
+    dashArray:"6,6"
+  }
+).addTo(routeLayerB);
+
+/* 始点のマーク */
+L.marker([360,900], {
+  icon: L.divIcon({
+  html: '<span style="font-size:25px; color:#000000; font-weight:bold;">🚶</span>', 
+    iconSize: [30, 30],
+    className: ""
+  })
+}).addTo(routeLayerB);
+
+/* 終点のマーク */
+L.marker([590,880], {
+  icon: L.divIcon({
+  html: '<span style="font-size:20px; color:#000000; font-weight:bold;">🚩</span>',
+    iconSize: [13, 13],
+    className: ""
+  })
+}).addTo(routeLayerB);
+
+
+/* =========================================
+   見学ルート C（西側＆屋外）
+========================================= */
+L.polyline(
+  [
+    [330,870],
+    [330,1380],
+    [240,1380],
+    [240,790]   // ← 終点
+  ],
+  {
+    color:"purple",
+    weight:3,
+    dashArray:"6,6"
+  }
+).addTo(routeLayerC);
+
+/* 始点のマーク */
+L.marker([250,770], {
+  icon: L.divIcon({
+  html: '<span style="font-size:25px; color:#000000; font-weight:bold;">🚶</span>',
+  iconSize: [30, 30],
+  className: ""
+  })
+}).addTo(routeLayerC);
+
+/* 終点のマーク */
+L.marker([330,850], {
+  icon: L.divIcon({
+  html: '<span style="font-size:20px; color:#000000; font-weight:bold;">🚩</span>',
+  iconSize: [30, 30],
+  className: ""
+  })
+}).addTo(routeLayerC);
+
+
+/* =========================================
+   6. レイヤ切替（QR前提）
+========================================= */
+L.control.layers(
+  null,
+  {
+    "👀 屋外実演ブース": outdoorLayer,
+    "📋 屋内展示ブース": indoorLayer,
+    "🚶→🚩 見学ルート A（東側エリア）": routeLayerA,
+    "🚶→🚩 見学ルート B（西側エリア）": routeLayerB,
+    "🚶→🚩 見学ルート C（西側＆屋内エリア）": routeLayerC
+  },
+  { collapsed: false }
+).addTo(map);
+
+/* 初期表示 */
+outdoorLayer.addTo(map);
+indoorLayer.addTo(map);
+</script>
+
+</body>
+</html>

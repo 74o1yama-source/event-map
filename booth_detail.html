@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>展示ブース一覧_【O：屋外展示－番号，I：屋内展示－番号】</title>
+
+<style>
+  body {
+    font-family: sans-serif;
+  }
+  .booth {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+  }
+  .active {
+    background-color: #eef5ff;
+    border-left: 6px solid #1d6fdc;
+  }
+</style>
+</head>
+
+<body>
+
+<div style="margin-bottom:16px; display:flex; gap:10px;">
+  <a href="event-map.html"
+     style="
+       padding:8px 14px;
+       background:#1d6fdc;
+       color:#fff;
+       text-decoration:none;
+       border-radius:6px;">
+    👀 屋外実演ブースＭＡＰへ
+  </a>
+
+  <a href="indoor_booth_map.html"
+     style="
+       padding:8px 14px;
+       background:#555;
+       color:#fff;
+       text-decoration:none;
+       border-radius:6px;">
+    📋 屋内展示ブースＭＡＰへ
+  </a>
+</div>
+
+<h1>展示ブース一覧_【O：屋外－番号，I：屋内－番号】</h1>
+
+<div id="O-01" class="booth">O-01：ハイドロマチックモア【送電】…</div>
+<div id="O-02" class="booth">O-02：パワーグリッドチェック【送電】…</div>
+<div id="O-03" class="booth">O-03：安全ＡＩカメラ＆輪留めインターロック…</div>
+<div id="O-04" class="booth">O-04：伐採車両【配電】…</div>
+<div id="O-05" class="booth">O-05：間接活線工具【配電】…</div>
+
+<div id="O-06" class="booth">O-06：ドローン巡視【変電】…</div>
+<div id="O-07" class="booth">O-07：運搬ドローン【送電】…</div>
+<div id="O-08" class="booth">O-08：山間部巡視ロボ【送電】…</div>
+<div id="O-09" class="booth">O-09：フォトスポット【広報】…</div>
+
+<div id="I-01" class="booth">I-01：＆Conote概要…</div>
+<div id="I-02" class="booth">I-02：＆Conoteサービス…</div>
+<div id="I-03" class="booth">I-03：コンサル海外事例…</div>
+<div id="I-04" class="booth">I-04：記念撮影スポット…</div>
+<div id="I-05" class="booth">I-05：各部門広報活動写真展示…</div>
+
+<div id="I-06" class="booth">I-06：AIによる配電設備劣化判定…</div>
+<div id="I-07" class="booth">I-07：ボルト緩み留め金具新型HSE『スマートスプリング』…</div>
+<div id="I-08" class="booth">I-08：DFES『地域別電力需要予測システム』…</div>
+<div id="I-09" class="booth">I-09：データ集約装置のデータ取得体験＆装置展示…</div>
+<div id="I-10" class="booth">I-10：エンジニアリング支援ツール…</div>
+
+<div id="I-11" class="booth">I-11：変電機器の保守技術…</div>
+<div id="I-12" class="booth">I-12：SF6ガスレス機器…</div>
+<div id="I-13" class="booth">I-13：受変電設備のセンシング…</div>
+<div id="I-14" class="booth">I-14：変圧器の周囲温度測定…</div>
+<div id="I-15" class="booth">I-15：系統用蓄電池を用いた実証試験…</div>
+
+<div id="I-16" class="booth">I-16：FRP製ケーブル支持材…</div>
+<div id="I-17" class="booth">I-17：ドローン訓練シミュレータ…</div>
+<div id="I-18" class="booth">I-18：地中線埋設立会…</div>
+<div id="I-19" class="booth">I-19：歩行用アシストスーツ…</div>
+<div id="I-20" class="booth">I-20：植物油変圧器…</div>
+
+<div id="I-21" class="booth">I-21：リサイクル絶縁油…</div>
+<div id="I-22" class="booth">I-22：ポリ管リサイクル…</div>
+<div id="I-23" class="booth">I-23：枝打ち機械…</div>
+<div id="I-24" class="booth">I-24：ドローン伐採…</div>
+
+<script>
+  // ハッシュ(#I-05 など)を取得
+  const id = location.hash.replace('#', '');
+
+  if (id) {
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.add('active');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+</script>
+
+</body>
+</html>

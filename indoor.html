@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>変電所イベント Webマップ（即確認版）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Leaflet CDN -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  body { margin:0; font-family: "Segoe UI", sans-serif; }
+  #map { height: 100vh; }
+
+  .header {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(255,255,255,0.95);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+.leaflet-popup-content .popup-title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 6px;
+  }
+
+  /* スマホ操作を意識 */
+  .leaflet-control-layers {
+    font-size: 14px;
+  }
+
+</style>
+</head>
+
+<style>
+.nav-links {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: 10px 14px;
+  background: #1d6fdc;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.nav-links a.secondary {
+  background: #555;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<div class="nav-links">
+  <a href="event-map.html">👀 屋外実演ブースＭＡＰへ</a>
+  <a href="booth_detail.html" class="secondary">📋 展示ブース一覧へ</a>
+</div>
+
+<script>
+/* =========================================
+   1. マップ初期化（構内ローカル座標）
+========================================= */
+const map = L.map("map", {
+  crs: L.CRS.Simple,
+  minZoom: -2,
+  maxZoom: 2
+});
+
+/* =========================================
+   2. 屋内展示図「イメージ」背景
+   ※本番では imageOverlay を実図PNGに差替
+========================================= */
+const bounds = [[0,0],[800,1500]];
+map.fitBounds(bounds);
+
+/* SVGで簡易構内図イメージを生成（即見れる用） */
+L.imageOverlay(
+  "indoor_map.png",
+  bounds
+).addTo(map);
+
+/* =========================================
+   3. レイヤ定義
+========================================= */
+const indoorLayer  = L.layerGroup();
+const routeLayerA  = L.layerGroup();
+
+
+/* =========================================
+   4. GeoJSON相当データ（HTML内埋め込み）
+========================================= */
+const indoorBooths = {  "type": "FeatureCollection","features": [
+    { "type":"Feature","properties":{"id":"I-01","name":"＆Conote概要","time":"5〜10分","image":"I-X.png"},
+
+      "geometry":{"type":"Point","coordinates":[1100,440]}},
+
+    { "type":"Feature","properties":{"id":"I-02","name":"＆Conoteサービス","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1170,540]}},
+
+    { "type":"Feature","properties":{"id":"I-03","name":"コンサル海外事例","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1040,440]}},
+
+    { "type":"Feature","properties":{"id":"I-04","name":"記念撮影スポット","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1020,570]}},
+
+    { "type":"Feature","properties":{"id":"I-05","name":"各部門広報活動写真展示","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[290,250]}},
+
+    { "type":"Feature","properties":{"id":"I-06","name":"AIによる配電設備劣化判定","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[370,440]}},
+
+    { "type":"Feature","properties":{"id":"I-07","name":"ボルト緩み留め金具新型HSE『スマートスプリング』","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[580,250]}},
+
+    { "type":"Feature","properties":{"id":"I-08","name":"DFES『地域別電力需要予測システム』","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[290,440]}},
+
+    { "type":"Feature","properties":{"id":"I-09","name":"データ集約装置のデータ取得体験＆装置展示","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[650,440]}},
+
+    { "type":"Feature","properties":{"id":"I-09","name":"データ集約装置のデータ取得体験＆装置展示","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[670,250]}},
+
+    { "type":"Feature","properties":{"id":"I-10","name":"エンジニアリング支援ツール","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[950,440]}},
+
+    { "type":"Feature","properties":{"id":"I-11","name":"変電機器の保守技術","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[800,440]}},
+
+    { "type":"Feature","properties":{"id":"I-12","name":"SF6ガスレス機器","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[800,250]}},
+
+    { "type":"Feature","properties":{"id":"I-13","name":"受変電設備のセンシング","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[880,440]}},
+
+    { "type":"Feature","properties":{"id":"I-14","name":"変圧器の周囲温度測定","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[720,440]}},
+
+    { "type":"Feature","properties":{"id":"I-15","name":"系統用蓄電池を用いた実証試験","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[410,250]}},
+
+    { "type":"Feature","properties":{"id":"I-16","name":"FRP製ケーブル支持材","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[500,250]}},
+
+    { "type":"Feature","properties":{"id":"I-17","name":"ドローン訓練シミュレータ","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1110,250]}},
+
+    { "type":"Feature","properties":{"id":"I-18","name":"地中線埋設立会","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[920,250]}},
+
+    { "type":"Feature","properties":{"id":"I-19","name":"歩行用アシストスーツ","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1030,250]}},
+
+    { "type":"Feature","properties":{"id":"I-20","name":"植物油変圧器","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[570,440]}},
+
+    { "type":"Feature","properties":{"id":"I-21","name":"リサイクル絶縁油","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[500,440]}},
+
+    { "type":"Feature","properties":{"id":"I-22","name":"ポリ管リサイクル","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[440,440]}},
+
+    { "type":"Feature","properties":{"id":"I-23","name":"枝打ち機械","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1220,250]}},
+
+    { "type":"Feature","properties":{"id":"I-24","name":"ドローン伐採","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1180,250]}},
+
+  ]
+};
+
+
+/* =========================================
+   5. 描画処理
+========================================= */
+
+function popupBase(p) {
+  let html = `
+    <div style="
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 6px;
+    ">
+      ${p.id} ${p.name}
+    </div>
+    見学目安：${p.time}
+  `;
+
+  // 画像がある場合のみ表示
+  if (p.image) {
+    html += `
+      <img src="${p.image}"
+           style="width:100%; margin-top:6px; border-radius:6px;">`;
+  }
+  return html;
+}
+
+L.geoJSON(indoorBooths,{
+  pointToLayer: (f, ll) =>
+    L.marker(ll, {
+      icon: L.divIcon({
+        className: "star-marker",
+        html: '<span style="font-size:30px; color:#000000; font-weight:bold;">📋</span>',
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
+      })
+    }),
+  onEachFeature: (f, l) =>
+    l.bindPopup(popupBase(f.properties))
+}).addTo(indoorLayer);
+
+
+
+/* =========================================
+   見学ルート C（西側＆屋外）
+========================================= */
+L.polyline(
+  [
+    [300,120],
+    [300,1450],
+    [730,1450],
+    [730,120]   // ← 終点
+  ],
+  {
+    color:"purple",
+    weight:3,
+    dashArray:"6,6"
+  }
+).addTo(routeLayerA);
+
+/* 始点のマーク */
+L.marker([300,100], {
+  icon: L.divIcon({
+ 　 html: '<span style="font-size:25px; color:#000000; font-weight:bold;">🚶</span>',
+    iconSize: [30, 30],
+    className: ""
+  })
+}).addTo(routeLayerA);
+
+/* 終点のマーク */
+L.marker([730,100], {
+  icon: L.divIcon({
+    html: '<span style="font-size:20px; color:#000000; font-weight:bold;">🚩</span>',
+    iconSize: [30, 30],
+    className: ""
+  })
+}).addTo(routeLayerA);
+``
+
+/* =========================================
+   6. レイヤ切替（QR前提）
+========================================= */
+L.control.layers(
+  null,
+  {
+    "📋 屋内展示ブース": indoorLayer,
+    "🚶→🚩 見学ルート C（西側＆屋内エリア）": routeLayerA
+  },
+  { collapsed: false }
+).addTo(map);
+
+/* 初期表示 */
+indoorLayer.addTo(map);
+</script>
+
+</body>
+</html>
