@@ -131,29 +131,29 @@ const routeLayerC  = L.layerGroup();
 const outdoorBooths = {
   "type":"FeatureCollection",
   "features":[
-    { "type":"Feature","properties":{"id":"O-1","name":"ハイドロマチックモア【送電】","time":"5〜10分","image":"O-1.png"},
+    { "type":"Feature","properties":{"id":"O-1","name":"ハイドロマチックモア【送電】","time":"15～20分","image":"O-1.png"},
 
       "geometry":{"type":"Point","coordinates":[180,670]}},
 
-    { "type":"Feature","properties":{"id":"O-2","name":"パワーグリッドチェック【送電】","time":"5〜10分","image":"O-2.png"},
+    { "type":"Feature","properties":{"id":"O-2","name":"パワーグリッドチェック【送電】","time":"15～20分","image":"O-2.png"},
       "geometry":{"type":"Point","coordinates":[255,440]}},
 
-    { "type":"Feature","properties":{"id":"O-3","name":"安全ＡＩカメラ＆輪留めインターロック","time":"5〜10分","image":"O-3.png"},
+    { "type":"Feature","properties":{"id":"O-3","name":"安全ＡＩカメラ＆輪留めインターロック","time":"15～20分","image":"O-3.png"},
       "geometry":{"type":"Point","coordinates":[660,250]}},
 
-    { "type":"Feature","properties":{"id":"O-4","name":"伐採車両【配電】","time":"5〜10分","image":"O-4.png"},
+    { "type":"Feature","properties":{"id":"O-4","name":"伐採車両【配電】","time":"15～20分","image":"O-4.png"},
       "geometry":{"type":"Point","coordinates":[1040,360]}},
 
     { "type":"Feature","properties":{"id":"O-5","name":"間接活線工具【配電】","time":"5〜10分","image":"O-5.png"},
       "geometry":{"type":"Point","coordinates":[1280,360]}},
 
-    { "type":"Feature","properties":{"id":"O-6","name":"ドローン巡視【変電】","time":"5〜10分","image":"O-6.png"},
+    { "type":"Feature","properties":{"id":"O-6","name":"ドローン巡視【変電】","time":"15～20分","image":"O-6.png"},
       "geometry":{"type":"Point","coordinates":[1000,600]}},
 
-    { "type":"Feature","properties":{"id":"O-7","name":"運搬ドローン【送電】","time":"5〜10分","image":"O-7.png"},
+    { "type":"Feature","properties":{"id":"O-7","name":"運搬ドローン【送電】","time":"15～20分","image":"O-7.png"},
       "geometry":{"type":"Point","coordinates":[1080,830]}},
 
-    { "type":"Feature","properties":{"id":"O-8","name":"山間部巡視ロボ【送電】","time":"5〜10分","image":"O-8.png"},
+    { "type":"Feature","properties":{"id":"O-8","name":"山間部巡視ロボ【送電】","time":"15～20分","image":"O-8.png"},
       "geometry":{"type":"Point","coordinates":[1220,960]}},
 
     { "type":"Feature","properties":{"id":"O-9","name":"フォトスポット【広報】","time":"5〜10分","image":"O-9.png"},
@@ -169,7 +169,7 @@ const indoorBooths = {  "type": "FeatureCollection",
         "id": "I-01～26",
         "name": "屋内展示ブース",
         "time": "30分",
-        "detailUrl": "indoor_booth_map.html"
+        "detailUrl": "indoor.html"
       },
       "geometry": {
         "type": "Point",
@@ -194,7 +194,7 @@ function popupBase(p) {
     ">
       ${p.id} ${p.name}
     </div>
-    見学目安：${p.time}
+    見学時間：${p.time}
   `;
 
   // 画像がある場合のみ表示
