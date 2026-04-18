@@ -266,25 +266,26 @@ L.polyline(
   [
     [400,830],
     [600,820],
-    [600,310],
+    [600,340],
+    [680,290],
     [750,300],
     [750,250],
     [580,300],
     [550,300],
     [550,320],
-    [580,320],
-    [580,800],
-    [530,830]   // ← 終点
+    [590,420],
+    [590,800],
+    [500,810]   // ← 終点
   ],
   {
-    color:"GREEN",
+    color:"RED",
     weight:3,
     dashArray:"6,6"
   }
 ).addTo(routeLayerA);
 
 /* 始点のマーク */
-L.marker([360,850], {
+L.marker([400,830], {
   icon: L.divIcon({
   html: '<span style="font-size:25px; color:#000000; font-weight:bold;">🚶</span>',
   iconSize: [30, 30],
@@ -293,7 +294,7 @@ L.marker([360,850], {
 }).addTo(routeLayerA);
 
 /* 終点のマーク */
-L.marker([540,830], {
+L.marker([500,810], {
   icon: L.divIcon({
   html: '<span style="font-size:20px; color:#000000; font-weight:bold;">🚩</span>',
     iconSize: [17, 17],
