@@ -345,10 +345,10 @@ L.marker([590,880], {
 ========================================= */
 L.polyline(
   [
-    [250,730],
-    [250,1380],
-    [390,1350],
-    [390,810]   // ← 終点
+    [230,650],
+    [260,1390],
+    [390,1340],
+    [390,770]   // ← 終点
   ],
   {
     color:"purple",
@@ -358,7 +358,7 @@ L.polyline(
 ).addTo(routeLayerC);
 
 /* 始点のマーク */
-L.marker([250,770], {
+L.marker([230,650], {
   icon: L.divIcon({
   html: '<span style="font-size:25px; color:#000000; font-weight:bold;">🚶</span>',
   iconSize: [30, 30],
@@ -367,7 +367,7 @@ L.marker([250,770], {
 }).addTo(routeLayerC);
 
 /* 終点のマーク */
-L.marker([330,850], {
+L.marker([390,770], {
   icon: L.divIcon({
   html: '<span style="font-size:20px; color:#000000; font-weight:bold;">🚩</span>',
   iconSize: [30, 30],
