@@ -74,8 +74,8 @@
 <div id="map"></div>
 
 <div class="nav-links">
-  <a href="indoor.html">🏢 屋内展示ブースＭＡＰへ</a>
-  <a href="booth_detail.html" class="secondary">📋 展示ブース一覧へ</a>
+  <a href="indoor.html">🏢 屋内展示ブースＭＡＰ</a>
+  <a href="booth_detail.html" class="secondary">💡 展示ブース一覧</a>
 </div>
 
 <script>
@@ -173,7 +173,7 @@ const indoorBooths = {  "type": "FeatureCollection",
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [930, 260]
+        "coordinates": [900, 270]
       }
     }
   ]
@@ -248,7 +248,7 @@ L.geoJSON(indoorBooths,{
     L.marker(ll, {
       icon: L.divIcon({
         className: "star-marker",
-        html: '<span style="font-size:30px; color:#000000; font-weight:bold;">📋</span>',
+        html: '<span style="font-size:30px; color:#000000; font-weight:bold;">💡</span>',
         iconSize: [36, 36],
         iconAnchor: [18, 18]
       })
@@ -345,13 +345,13 @@ L.marker([665,800], {
 ========================================= */
 L.polyline(
   [
-    [230,650],
+    [240,650],
     [260,1390],
     [390,1340],
     [390,770]   // ← 終点
   ],
   {
-    color:"purple",
+    color:"pink",
     weight:3,
     dashArray:"6,6"
   }
@@ -383,7 +383,7 @@ L.control.layers(
   null,
   {
     "👀 屋外実演ブース": outdoorLayer,
-    "📋 屋内展示ブース": indoorLayer,
+    "💡 屋内展示ブース": indoorLayer,
     "🚶→🚩 見学ルート A（西側エリア）": routeLayerA,
     "🚶→🚩 見学ルート B（東側エリア）": routeLayerB,
     "🚶→🚩 見学ルート C（東側＆屋内エリア）": routeLayerC
