@@ -110,81 +110,72 @@ const routeLayerA  = L.layerGroup();
    4. GeoJSON相当データ（HTML内埋め込み）
 ========================================= */
 const indoorBooths = {  "type": "FeatureCollection","features": [
-    { "type":"Feature","properties":{"id":"I-01","name":"＆Conote概要","time":"5〜10分","image":"I-X.png"},
+    { "type":"Feature","properties":{"id":"I-01","name":"技術PRコーナー","time":"5〜10分","image":"I-X.png"},  "geometry":{"type":"Point","coordinates":[300,380]}},
 
-      "geometry":{"type":"Point","coordinates":[1220,520]}},
+    { "type":"Feature","properties":{"id":"I-02","name":"地域別電力需要予測システム（DFES）","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[260,460]}},
 
-    { "type":"Feature","properties":{"id":"I-02","name":"＆Conoteサービス","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[1300,500]}},
+    { "type":"Feature","properties":{"id":"I-03","name":"AIを活用した配電設備の劣化判定","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[340,460]}},
 
-    { "type":"Feature","properties":{"id":"I-03","name":"コンサル海外事例","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[1150,490]}},
+    { "type":"Feature","properties":{"id":"I-04","name":"ポリエチレン線カバーの水平リサイクル","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[420,460]}},
 
-    { "type":"Feature","properties":{"id":"I-04","name":"記念撮影スポット","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[1150,580]}},
+    { "type":"Feature","properties":{"id":"I-05","name":"柱上変圧器の絶縁油リサイクル","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[500,460]}},
 
-    { "type":"Feature","properties":{"id":"I-05","name":"各部門広報活動写真展示","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[400,300]}},
+    { "type":"Feature","properties":{"id":"I-06","name":"植物油変圧器の紹介","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[580,460]}},
 
-    { "type":"Feature","properties":{"id":"I-06","name":"AIによる配電設備劣化判定","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[340,440]}},
+    { "type":"Feature","properties":{"id":"I-07","name":"蓄電池を活用した水力マイクログリッド系統の安定化を実現","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[410,300]}},
 
-    { "type":"Feature","properties":{"id":"I-07","name":"ボルト緩み留め金具新型HSE『スマートスプリング』","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[810,300]}},
+    { "type":"Feature","properties":{"id":"I-08","name":"地中ケーブル用FRP製支持材 実機展示","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[510,300]}},
 
-    { "type":"Feature","properties":{"id":"I-08","name":"DFES『地域別電力需要予測システム』","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[260,440]}},
-
-    { "type":"Feature","properties":{"id":"I-09","name":"データ集約装置のデータ取得体験＆装置展示","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[660,440]}},
-
-    { "type":"Feature","properties":{"id":"I-09","name":"データ集約装置のデータ取得体験＆装置展示","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[670,300]}},
-
-    { "type":"Feature","properties":{"id":"I-10","name":"エンジニアリング支援ツール","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[970,440]}},
-
-    { "type":"Feature","properties":{"id":"I-11","name":"変電機器の保守技術","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[820,440]}},
-
-    { "type":"Feature","properties":{"id":"I-12","name":"SF6ガスレス機器","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[910,300]}},
-
-    { "type":"Feature","properties":{"id":"I-13","name":"受変電設備のセンシング","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[900,440]}},
-
-    { "type":"Feature","properties":{"id":"I-14","name":"変圧器の周囲温度測定","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[740,440]}},
-
-    { "type":"Feature","properties":{"id":"I-15","name":"系統用蓄電池を用いた実証試験","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[500,300]}},
-
-    { "type":"Feature","properties":{"id":"I-16","name":"FRP製ケーブル支持材","time":"5〜10分","image":"I-X.png"},
+    { "type":"Feature","properties":{"id":"I-09","name":"鉄塔用ボルト緩み止め金具　スマートスプリング","time":"5〜10分","image":"I-X.png"},
       "geometry":{"type":"Point","coordinates":[580,300]}},
 
-    { "type":"Feature","properties":{"id":"I-17","name":"ドローン訓練シミュレータ","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[1150,300]}},
+    { "type":"Feature","properties":{"id":"I-10A","name":"状態監視保全システムによる変電設備のセンシング","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[690,460]}},
 
-    { "type":"Feature","properties":{"id":"I-18","name":"地中線埋設立会","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[1010,300]}},
+    { "type":"Feature","properties":{"id":"I-10B","name":"状態監視保全システムによる変電設備のセンシング","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[690,300]}},
 
-    { "type":"Feature","properties":{"id":"I-19","name":"歩行用アシストスーツ","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[1080,300]}},
+    { "type":"Feature","properties":{"id":"I-11","name":"変電機器の保守技術紹介","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[820,440]}},
 
-    { "type":"Feature","properties":{"id":"I-20","name":"植物油変圧器","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[580,440]}},
+    { "type":"Feature","properties":{"id":"I-12","name":"エンジニアリング支援ツール紹介","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[960,440]}},
 
-    { "type":"Feature","properties":{"id":"I-21","name":"リサイクル絶縁油","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[490,440]}},
+    { "type":"Feature","properties":{"id":"I-13","name":"カーボンニュートラルの実現に向けた変電設備","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[820,300]}},
 
-    { "type":"Feature","properties":{"id":"I-22","name":"ポリ管リサイクル","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[420,440]}},
 
-    { "type":"Feature","properties":{"id":"I-23","name":"枝打ち機械","time":"5〜10分","image":"I-X.png"},
+    { "type":"Feature","properties":{"id":"I-14","name":"地中線埋設立ち合いの紹介","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[930,300]}},
+
+    { "type":"Feature","properties":{"id":"I-15","name":"歩行用アシストスーツの歩行体験","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1050,300]}},
+
+    { "type":"Feature","properties":{"id":"I-16","name":"ドローンシミュレータの訓練体験","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1120,300]}},
+
+    { "type":"Feature","properties":{"id":"I-17","name":"ドローン伐採機の開発紹介","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1190,300]}},
+
+    { "type":"Feature","properties":{"id":"I-18","name":"自動昇木機能付き芯止め機の実機展示","time":"5〜10分","image":"I-X.png"},
       "geometry":{"type":"Point","coordinates":[1290,300]}},
 
-    { "type":"Feature","properties":{"id":"I-24","name":"ドローン伐採","time":"5〜10分","image":"I-X.png"},
-      "geometry":{"type":"Point","coordinates":[1220,300]}},
+    { "type":"Feature","properties":{"id":"I-19","name":"コンサルティングサービス＆Conote　サービス紹介","time":"5〜10分","image":"I-X.png"},
+
+      "geometry":{"type":"Point","coordinates":[1290,520]}},
+
+    { "type":"Feature","properties":{"id":"I-20","name":"海外コンサル事例紹介","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1200,540]}},
+
+    { "type":"Feature","properties":{"id":"I-21","name":"【企画室特別展示】GAxIAプラットフォームサービス（3D Gaussian Splatting）","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[1110,520]}},
 
   ]
 };
