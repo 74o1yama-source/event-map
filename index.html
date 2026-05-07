@@ -74,8 +74,7 @@
 <div id="map"></div>
 
 <div class="nav-links">
-  <a href="indoor.html">🏢 屋内展示ブースＭＡＰ</a>
-  <a href="booth_detail.html" class="secondary">💡 展示ブース一覧</a>
+  <a href="booth_detail.html" class="secondary">📋 展示ブース一覧</a>
 </div>
 
 <script>
@@ -131,39 +130,114 @@ const routeLayerC  = L.layerGroup();
 const outdoorBooths = {
   "type":"FeatureCollection",
   "features":[
-    { "type":"Feature","properties":{"id":"O-1","name":"車高調整式下草刈り機の操作体験","time":"15～20分","image":"O-1.png"},
+    { "type":"Feature","properties":{"id":"01","name":"車高調整式下草刈り機の操作体験","detail":"ハイドロマチック・モア導入による小径木伐採の省力化に向けた取組紹介および伐採実演と操作体験","image":"O-01.png"},
 
-      "geometry":{"type":"Point","coordinates":[180,760]}},
+      "geometry":{"type":"Point","coordinates":[240,780]}},
 
-    { "type":"Feature","properties":{"id":"O-2","name":"送電設備自動点検（POWER GRID Check)　実演","time":"15～20分","image":"O-2.png"},
-      "geometry":{"type":"Point","coordinates":[270,580]}},
+    { "type":"Feature","properties":{"id":"02","name":"送電設備自動点検（POWER GRID Check)　実演","detail":"送電鉄塔の定期点検を実演。設備情報と座標情報を入力・取得することで、誰でも安全に高品質な画像を取得","image":"O-02.png"},
+      "geometry":{"type":"Point","coordinates":[260,690]}},
 
-    { "type":"Feature","properties":{"id":"O-3","name":"受変電キュービクルのセンシング技術","time":"15～20分","image":"O-3-1.png"},
-      "geometry":{"type":"Point","coordinates":[580,400]}},
+    { "type":"Feature","properties":{"id":"03","name":"四脚ロボット 実演","detail":"15～20分","image":"O-10.png"},
+      "geometry":{"type":"Point","coordinates":[690,850]}},
 
-    { "type":"Feature","properties":{"id":"O-4","name":"安全AIカメラを活用した墜落災害防止","time":"15～20分","image":"O-3.png"},
-      "geometry":{"type":"Point","coordinates":[580,280]}},
+    { "type":"Feature","properties":{"id":"04","name":"ドローン運搬 実演","detail":"15～20分","image":"O-09.png"},
+      "geometry":{"type":"Point","coordinates":[700,800]}},
 
-    { "type":"Feature","properties":{"id":"O-5","name":"高所作業車の逸走防止インターロック","time":"15～20分","image":"O-3.png"},
-      "geometry":{"type":"Point","coordinates":[580,170]}},
+    { "type":"Feature","properties":{"id":"05","name":"変電所巡視ドローン","detail":"15～20分","image":"O-08.png"},
+      "geometry":{"type":"Point","coordinates":[680,730]}},
 
-    { "type":"Feature","properties":{"id":"O-6","name":"配電用伐採車両　グラップルソー・フェラバンチャー","time":"15～20分","image":"O-4.png"},
-      "geometry":{"type":"Point","coordinates":[950,440]}},
+    { "type":"Feature","properties":{"id":"06","name":"受変電キュービクルのセンシング技術","detail":"15～20分","image":"O-03.png"},
+      "geometry":{"type":"Point","coordinates":[430,640]}},
 
-    { "type":"Feature","properties":{"id":"O-7","name":"間接活線工具","time":"5〜10分","image":"O-5.png"},
-      "geometry":{"type":"Point","coordinates":[1150,440]}},
+    { "type":"Feature","properties":{"id":"07","name":"配電用伐採車両　グラップルソー・フェラバンチャー","detail":"15～20分","image":"O-06.png"},
+      "geometry":{"type":"Point","coordinates":[750,630]}},
 
-    { "type":"Feature","properties":{"id":"O-8","name":"変電所巡視ドローン","time":"15～20分","image":"O-6.png"},
-      "geometry":{"type":"Point","coordinates":[930,690]}},
+    { "type":"Feature","properties":{"id":"08","name":"間接活線工具","detail":"5〜10分","image":"O-07.png"},
+      "geometry":{"type":"Point","coordinates":[950,630]}},
 
-    { "type":"Feature","properties":{"id":"O-9","name":"ドローン運搬 実演","time":"15～20分","image":"O-7.png"},
-      "geometry":{"type":"Point","coordinates":[1000,880]}},
+    { "type":"Feature","properties":{"id":"09","name":"安全AIカメラを活用した墜落災害防止","detail":"15～20分","image":"O-04.png"},
+      "geometry":{"type":"Point","coordinates":[430,600]}},
 
-    { "type":"Feature","properties":{"id":"O-10","name":"四脚ロボット 実演","time":"15～20分","image":"O-8.png"},
-      "geometry":{"type":"Point","coordinates":[980,960]}},
+    { "type":"Feature","properties":{"id":"10","name":"高所作業車の逸走防止インターロック","detail":"15～20分","image":"O-05.png"},
+      "geometry":{"type":"Point","coordinates":[430,560]}},
 
-    { "type":"Feature","properties":{"id":"O-11","name":"📸フォトスポット（変電所カード）","time":"5〜10分","image":"O-9.png"},
-      "geometry":{"type":"Point","coordinates":[750,280]}}
+    { "type":"Feature","properties":{"id":"11","name":"📸フォトスポット（変電所カード）","detail":"5〜10分","image":"O-11.png"},
+      "geometry":{"type":"Point","coordinates":[560,610]}},
+
+    { "type":"Feature","properties":{"id":"12","name":"地中ケーブル用FRP製支持材 実機展示","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[390,190]}},
+
+    { "type":"Feature","properties":{"id":"13","name":"鉄塔用ボルト緩み止め金具　スマートスプリング","detail":"5〜10分","image":"I-09.png"},
+      "geometry":{"type":"Point","coordinates":[440,190]}},
+
+    { "type":"Feature","properties":{"id":"14","name":"歩行用アシストスーツの歩行体験","time":"5〜10分","detail":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[710,190]}},
+
+    { "type":"Feature","properties":{"id":"15","name":"地中線埋設立ち合いの紹介","time":"5〜10分","detail":"I-14.png"},
+      "geometry":{"type":"Point","coordinates":[800,190]}},
+
+    { "type":"Feature","properties":{"id":"16","name":"ドローンシミュレータの訓練体験","time":"5〜10分","detail":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[850,190]}},
+
+    { "type":"Feature","properties":{"id":"17","name":"ドローン伐採機の開発紹介","time":"5〜10分","detail":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[910,190]}},
+
+    { "type":"Feature","properties":{"id":"18","name":"自動昇木機能付き芯止め機の実機展示","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[970,190]}},
+
+    { "type":"Feature","properties":{"id":"19","name":"【企画室特別展示】GAxIAプラットフォームサービス（3D Gaussian Splatting）","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[840,320]}},
+
+    { "type":"Feature","properties":{"id":"20","name":"状態監視保全システムによる変電設備のセンシング","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[510,250]}},
+
+    { "type":"Feature","properties":{"id":"20","name":"状態監視保全システムによる変電設備のセンシング","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[510,190]}},
+
+    { "type":"Feature","properties":{"id":"21","name":"カーボンニュートラルの実現に向けた変電設備","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[630,190]}},
+
+    { "type":"Feature","properties":{"id":"22","name":"植物油変圧器の紹介","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[430,250]}},
+
+    { "type":"Feature","properties":{"id":"23","name":"変電機器の保守技術紹介","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[620,250]}},
+
+    { "type":"Feature","properties":{"id":"24","name":"エンジニアリング支援ツール紹介","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[710,250]}},
+
+    { "type":"Feature","properties":{"id":"25","name":"海外コンサル事例紹介","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[900,320]}},
+
+    { "type":"Feature","properties":{"id":"26","name":"蓄電池を活用した水力マイクログリッド系統の安定化を実現","detail":"5〜10分","image":"I-07.png"},
+      "geometry":{"type":"Point","coordinates":[320,190]}},
+
+    { "type":"Feature","properties":{"id":"27","name":"AIを活用した配電設備の劣化判定","detail":"5〜10分","image":"I-03.png"},
+      "geometry":{"type":"Point","coordinates":[260,250]}},
+
+    { "type":"Feature","properties":{"id":"28","name":"ポリエチレン線カバーの水平リサイクル","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[310,250]}},
+
+    { "type":"Feature","properties":{"id":"29","name":"柱上変圧器の絶縁油リサイクル","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[370,250]}},
+
+    { "type":"Feature","properties":{"id":"30","name":"技術PRコーナー","detail":"5〜10分","image":"I-X.png"},  "geometry":{"type":"Point","coordinates":[150,190]}},
+
+    { "type":"Feature","properties":{"id":"31","name":"コンサルティングサービス＆Conote　サービス紹介","detail":"5〜10分","image":"I-X.png"},
+
+      "geometry":{"type":"Point","coordinates":[960,320]}},
+
+    { "type":"Feature","properties":{"id":"32","name":"地域別電力需要予測システム（DFES）","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[170,250]}},
+
+    { "type":"Feature","properties":{"id":"33","name":"【出張展示】ドローン・ウェアラブルカメラ等による境界立会","time":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[210,190]}},
+
+    { "type":"Feature","properties":{"id":"34","name":"【出張展示】暗黙知抽出エージェント","detail":"5〜10分","image":"I-X.png"},
+      "geometry":{"type":"Point","coordinates":[270,190]}},
+
+
+
   ]
 };
 
@@ -179,7 +253,7 @@ const indoorBooths = {  "type": "FeatureCollection",
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [900, 270]
+        "coordinates": [0, 0]
       }
     }
   ]
@@ -200,7 +274,7 @@ function popupBase(p) {
     ">
       ${p.id} ${p.name}
     </div>
-    見学時間：${p.time}
+    概要：${p.detail}
   `;
 
   // 画像がある場合のみ表示
@@ -240,7 +314,7 @@ L.geoJSON(outdoorBooths, {
     L.marker(ll, {
       icon: L.divIcon({
         className: "star-marker",
-        html: '<span style="font-size:30px; color:#000000; font-weight:bold;">👀</span>',
+        html: '<span style="font-size:30px; color:#000000; font-weight:bold;"> </span>',
         iconSize: [36, 36],
         iconAnchor: [18, 18]
       })
@@ -254,7 +328,7 @@ L.geoJSON(indoorBooths,{
     L.marker(ll, {
       icon: L.divIcon({
         className: "star-marker",
-        html: '<span style="font-size:30px; color:#000000; font-weight:bold;">💡</span>',
+        html: '<span style="font-size:30px; color:#000000; font-weight:bold;"> </span>',
         iconSize: [36, 36],
         iconAnchor: [18, 18]
       })
@@ -264,123 +338,6 @@ L.geoJSON(indoorBooths,{
 }).addTo(indoorLayer);
 
 
-/* =========================================
-   見学ルート A（西側）
-========================================= */
-/* 見学ルート A */
-L.polyline(
-  [
-    [400,830],
-    [600,820],
-    [600,340],
-    [680,290],
-    [750,300],
-    [750,250],
-    [580,300],
-    [550,300],
-    [550,320],
-    [590,420],
-    [590,800],
-    [500,800]   // ← 終点
-  ],
-  {
-    color:"RED",
-    weight:3,
-    dashArray:"6,6"
-  }
-).addTo(routeLayerA);
-
-/* 始点のマーク */
-L.marker([400,840], {
-  icon: L.divIcon({
-  html: '<span style="font-size:25px; color:#000000; font-weight:bold;">🚶</span>',
-  iconSize: [30, 30],
-    className: ""
-  })
-}).addTo(routeLayerA);
-
-/* 終点のマーク */
-L.marker([500,790], {
-  icon: L.divIcon({
-  html: '<span style="font-size:20px; color:#000000; font-weight:bold;">🚩</span>',
-    iconSize: [17, 17],
-    className: ""
-  })
-}).addTo(routeLayerA);
-
-/* =========================================
-   見学ルート B（東側）
-========================================= */
-L.polyline(
-  [
-    [400,830],
-    [625,820],
-    [625,1160],
-    [915,1080],
-    [915,795],
-    [660,815]   // ← 終点
-  ],
-  {
-    color:"BLUE",
-    weight:3,
-    dashArray:"6,6"
-  }
-).addTo(routeLayerB);
-
-/* 始点のマーク */
-L.marker([400,840], {
-  icon: L.divIcon({
-  html: '<span style="font-size:25px; color:#000000; font-weight:bold;">🚶</span>', 
-    iconSize: [30, 30],
-    className: ""
-  })
-}).addTo(routeLayerB);
-
-/* 終点のマーク */
-L.marker([665,800], {
-  icon: L.divIcon({
-  html: '<span style="font-size:20px; color:#000000; font-weight:bold;">🚩</span>',
-    iconSize: [13, 13],
-    className: ""
-  })
-}).addTo(routeLayerB);
-
-
-/* =========================================
-   見学ルート C（東側＆屋外）
-========================================= */
-L.polyline(
-  [
-    [240,650],
-    [260,1390],
-    [390,1340],
-    [390,770]   // ← 終点
-  ],
-  {
-    color:"pink",
-    weight:3,
-    dashArray:"6,6"
-  }
-).addTo(routeLayerC);
-
-/* 始点のマーク */
-L.marker([230,640], {
-  icon: L.divIcon({
-  html: '<span style="font-size:25px; color:#000000; font-weight:bold;">🚶</span>',
-  iconSize: [30, 30],
-  className: ""
-  })
-}).addTo(routeLayerC);
-
-/* 終点のマーク */
-L.marker([400,760], {
-  icon: L.divIcon({
-  html: '<span style="font-size:20px; color:#000000; font-weight:bold;">🚩</span>',
-  iconSize: [30, 30],
-  className: ""
-  })
-}).addTo(routeLayerC);
-
 
 /* =========================================
    6. レイヤ切替（QR前提）
@@ -388,11 +345,7 @@ L.marker([400,760], {
 L.control.layers(
   null,
   {
-    "👀 屋外実演ブース": outdoorLayer,
-    "💡 屋内展示ブース": indoorLayer,
-    "🚶→🚩 見学ルート A（西側エリア）": routeLayerA,
-    "🚶→🚩 見学ルート B（東側エリア）": routeLayerB,
-    "🚶→🚩 見学ルート C（東側＆屋内エリア）": routeLayerC
+    "展示実演ブース": outdoorLayer,
   },
   { collapsed: false }
 ).addTo(map);
