@@ -26,6 +26,73 @@
   background-color: black;  /* 背景色好きな色 */
 }
 
+#checked-list {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 35%;
+  background: rgba(255,255,255,0.95);
+  z-index: 2000;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
+  padding: 8px 12px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+#checked-list .title {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+#checked-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#checked-items li {
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+}
+
+#checked-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+}
+
+#clear-all-btn {
+  margin-left: 10px;
+  background: #555;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#clear-all-btn:hover {
+  background: #333;
+}
+
+.remove-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background: #c0392b;
+}
+
   .header {
     position: absolute;
     top: 8px;
@@ -45,15 +112,12 @@
     margin-bottom: 6px;
   }
 
-
-
-
 .blink-dot {
-  width: 16px;
-  height: 16px;
-  background: red;
+  width: 25px;
+  height: 25px;
+  background: blue;
   border-radius: 50%;
-  box-shadow: 0 0 10px red;
+  box-shadow: 0 0 10px blue;
   animation: blink 1s infinite;
 }
 
@@ -64,9 +128,6 @@
 }
 
 
-
-
-
   /* スマホ操作を意識 */
   .leaflet-control-layers {
     font-size: 14px;
@@ -74,8 +135,8 @@
 
 .nav-links {
   position: fixed;
-  bottom: 12px;
-  left: 12px;
+  top: 12px;
+  right: 12px;
   z-index: 9999;
   display: flex;
   flex-direction: column;
@@ -95,14 +156,31 @@
   background: #555;
 }
 </style>
+
 </head>
 
 <body>
+<h3>
+・マップ右欄のブース名をクリックするとブース場所確認＆「チェックしたブース一覧」にリスト追加できますできます
+</h3>
+<h3>
+</h3>
+<h3>
+・マップ上のブース番号をクリックすると概要が表示されます
+</h3>
 
 <div id="map"></div>
 
 <div class="nav-links">
   <a href="booth_detail.html" class="secondary">📋 展示ブース一覧</a>
+</div>
+
+<div id="checked-list">
+  <div class="title">
+    ✅ チェックしたブース
+    <button id="clear-all-btn">一括解除</button>
+  </div>
+  <ul id="checked-items"></ul>
 </div>
 
 <script>
@@ -128,6 +206,45 @@ window.addEventListener("orientationchange", () => {
   setTimeout(fixMapSize, 300);
 });
 
+
+const checkedSet = new Set();
+
+function addCheckedItem(p) {
+  if (checkedSet.has(p.id)) return;
+
+  checkedSet.add(p.id);
+
+  const ul = document.getElementById("checked-items");
+  if (!ul) return;
+
+  const li = document.createElement("li");
+  li.setAttribute("data-id", p.id);
+
+  const text = document.createElement("span");
+  text.textContent = `${p.id} ${p.name}`;
+
+  const btn = document.createElement("button");
+  btn.textContent = "解除";
+  btn.className = "remove-btn";
+
+  // ✅ 解除処理
+  btn.addEventListener("click", () => {
+    checkedSet.delete(p.id);
+    li.remove();
+  });
+
+  li.appendChild(text);
+  li.appendChild(btn);
+  ul.appendChild(li);
+}
+ // ✅ 一括解除処理
+document.getElementById("clear-all-btn").addEventListener("click", () => {
+  checkedSet.clear();
+  const ul = document.getElementById("checked-items");
+  while (ul.firstChild) {
+    ul.removeChild(ul.firstChild);
+  }
+});
 
 /* =========================================
    2. 構内図「イメージ」背景
@@ -441,6 +558,12 @@ function showBlinkMarkerById(id) {
       );
 
       highlightLayer.addLayer(marker);
+
+      // ★10秒後に消える
+      setTimeout(() => {
+        highlightLayer.removeLayer(marker);
+      }, 5000);
+
     }
 
   });
@@ -463,6 +586,7 @@ L.geoJSON(outdoorBooths, {
     l.bindPopup(popupBase(f.properties))
 }).addTo(outdoorLayer);
 
+
 L.geoJSON(indoorBooths,{
   pointToLayer: (f, ll) =>
     L.marker(ll, {
@@ -474,10 +598,10 @@ L.geoJSON(indoorBooths,{
       })
     }),
 
-
  onEachFeature: (f, l) => {
     l.on("click", () => {
       showBlinkMarkerById(f.properties.id);
+      addCheckedItem(f.properties);
     });
   }
 
